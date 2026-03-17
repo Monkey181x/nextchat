@@ -1,0 +1,317 @@
+yarn run v1.22.19
+$ concurrently -r "yarn run mask:watch" "next dev"
+(node:25608) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+$ npx watch "yarn mask" app/masks
+[Next] build mode standalone
+[Next] build with chunk:  true
+npm warn Unknown env config "argv". This will stop working in the next major version of npm.
+npm warn Unknown env config "version-commit-hooks". This will stop working in the next major version of npm.
+npm warn Unknown env config "version-git-message". This will stop working in the next major version of npm.
+npm warn Unknown env config "version-git-tag". This will stop working in the next major version of npm.
+npm warn Unknown env config "version-tag-prefix". This will stop working in the next major version of npm.
+[Next] build mode standalone
+[Next] build with chunk:  true
+   â–² Next.js 14.1.1
+   - Local:        http://localhost:3000
+   - Experiments (use at your own risk):
+     Â· forceSwcTransforms
+
+> Watching app/masks
+$ npx tsx app/masks/build.ts
+npm warn Unknown env config "argv". This will stop working in the next major version of npm.
+npm warn Unknown env config "version-commit-hooks". This will stop working in the next major version of npm.
+npm warn Unknown env config "version-git-message". This will stop working in the next major version of npm.
+npm warn Unknown env config "version-git-tag". This will stop working in the next major version of npm.
+npm warn Unknown env config "version-tag-prefix". This will stop working in the next major version of npm.
+ âœ“ Ready in 1690ms
+ â—‹ Compiling / ...
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|javascript/auto|E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-flight-css-loader.js??ruleSet[1].rules[12].oneOf[9].use[0]!E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[12].oneOf[9].use[1]!E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[12].oneOf[9].use[2]!E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\resolve-url-loader\index.js??ruleSet[1].rules[12].oneOf[9].use[3]!E:\github\nextchat\node_modules\next\dist\compiled\sass-loader\cjs.js??ruleSet[1].rules[12].oneOf[9].use[4]!E:\github\nextchat\app\components\chat.module.scss|ssr': No serializer registered for Warning
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> Array { 1 items } -> webpack/lib/ModuleWarning -> Warning
+ âš  ./app/components/chat.module.scss.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[9].use[5]!./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[9].use[5]!./app/components/chat.module.scss
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+
+./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+Attempted to get item "app-config" from localStorage, but localStorage is not available.
+Attempted to get item "lang" from localStorage, but localStorage is not available.
+Attempted to get item "access-control" from localStorage, but localStorage is not available.
+Attempted to get item "mask-store" from localStorage, but localStorage is not available.
+Attempted to get item "lang" from localStorage, but localStorage is not available.
+Attempted to get item "chat-next-web-store" from localStorage, but localStorage is not available.
+Attempted to get item "chat-update" from localStorage, but localStorage is not available.
+Attempted to get item "chat-next-web-plugin" from localStorage, but localStorage is not available.
+Attempted to get item "prompt-store" from localStorage, but localStorage is not available.
+Attempted to get item "sync" from localStorage, but localStorage is not available.
+skip setItem app-config
+skip setItem access-control
+skip setItem mask-store
+skip setItem chat-next-web-store
+skip setItem chat-update
+skip setItem chat-next-web-plugin
+skip setItem prompt-store
+skip setItem sync
+Attempted to set item "app-config" in localStorage, but localStorage is not available.
+Attempted to set item "access-control" in localStorage, but localStorage is not available.
+Attempted to set item "mask-store" in localStorage, but localStorage is not available.
+Attempted to set item "chat-next-web-store" in localStorage, but localStorage is not available.
+Attempted to set item "chat-update" in localStorage, but localStorage is not available.
+Attempted to set item "chat-next-web-plugin" in localStorage, but localStorage is not available.
+Attempted to set item "prompt-store" in localStorage, but localStorage is not available.
+Attempted to set item "sync" in localStorage, but localStorage is not available.
+ âš  ./app/components/chat.module.scss.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[9].use[5]!./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[9].use[5]!./app/components/chat.module.scss
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+
+./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+(node:2012) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ âš  ./app/components/chat.module.scss.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[9].use[5]!./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[9].use[5]!./app/components/chat.module.scss
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+
+./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[9].use[2]!E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[9].use[3]!E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\resolve-url-loader\index.js??ruleSet[1].rules[11].oneOf[9].use[4]!E:\github\nextchat\node_modules\next\dist\compiled\sass-loader\cjs.js??ruleSet[1].rules[11].oneOf[9].use[5]!E:\github\nextchat\app\components\chat.module.scss': No serializer registered for Warning
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> Array { 1 items } -> webpack/lib/ModuleWarning -> Warning
+ âš  ./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+Attempted to get item "app-config" from localStorage, but localStorage is not available.
+Attempted to get item "lang" from localStorage, but localStorage is not available.
+Attempted to get item "access-control" from localStorage, but localStorage is not available.
+Attempted to get item "mask-store" from localStorage, but localStorage is not available.
+Attempted to get item "lang" from localStorage, but localStorage is not available.
+Attempted to get item "chat-next-web-store" from localStorage, but localStorage is not available.
+Attempted to get item "chat-update" from localStorage, but localStorage is not available.
+Attempted to get item "chat-next-web-plugin" from localStorage, but localStorage is not available.
+Attempted to get item "prompt-store" from localStorage, but localStorage is not available.
+Attempted to get item "sync" from localStorage, but localStorage is not available.
+skip setItem app-config
+skip setItem access-control
+skip setItem mask-store
+skip setItem chat-next-web-store
+skip setItem chat-update
+skip setItem chat-next-web-plugin
+skip setItem prompt-store
+skip setItem sync
+Attempted to set item "app-config" in localStorage, but localStorage is not available.
+Attempted to set item "access-control" in localStorage, but localStorage is not available.
+Attempted to set item "mask-store" in localStorage, but localStorage is not available.
+Attempted to set item "chat-next-web-store" in localStorage, but localStorage is not available.
+Attempted to set item "chat-update" in localStorage, but localStorage is not available.
+Attempted to set item "chat-next-web-plugin" in localStorage, but localStorage is not available.
+Attempted to set item "prompt-store" in localStorage, but localStorage is not available.
+Attempted to set item "sync" in localStorage, but localStorage is not available.
+ âš  ./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+ âš  ./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+Attempted to get item "app-config" from localStorage, but localStorage is not available.
+Attempted to get item "lang" from localStorage, but localStorage is not available.
+Attempted to get item "access-control" from localStorage, but localStorage is not available.
+Attempted to get item "mask-store" from localStorage, but localStorage is not available.
+Attempted to get item "lang" from localStorage, but localStorage is not available.
+Attempted to get item "chat-next-web-store" from localStorage, but localStorage is not available.
+Attempted to get item "chat-update" from localStorage, but localStorage is not available.
+Attempted to get item "chat-next-web-plugin" from localStorage, but localStorage is not available.
+Attempted to get item "prompt-store" from localStorage, but localStorage is not available.
+Attempted to get item "sync" from localStorage, but localStorage is not available.
+skip setItem app-config
+skip setItem access-control
+skip setItem mask-store
+skip setItem chat-next-web-store
+skip setItem chat-update
+skip setItem chat-next-web-plugin
+skip setItem prompt-store
+skip setItem sync
+Attempted to set item "app-config" in localStorage, but localStorage is not available.
+Attempted to set item "access-control" in localStorage, but localStorage is not available.
+Attempted to set item "mask-store" in localStorage, but localStorage is not available.
+Attempted to set item "chat-next-web-store" in localStorage, but localStorage is not available.
+Attempted to set item "chat-update" in localStorage, but localStorage is not available.
+Attempted to set item "chat-next-web-plugin" in localStorage, but localStorage is not available.
+Attempted to set item "prompt-store" in localStorage, but localStorage is not available.
+Attempted to set item "sync" in localStorage, but localStorage is not available.
+ âš  ./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+ âš  ./app/components/chat.module.scss
+Warning
+
+(390:3) autoprefixer: end value has mixed support, consider using flex-end instead
+
+Import trace for requested module:
+./app/components/chat.module.scss
+./app/components/mask.tsx
+./app/components/home.tsx
+Attempted to get item "app-config" from localStorage, but localStorage is not available.
+Attempted to get item "lang" from localStorage, but localStorage is not available.
+Attempted to get item "access-control" from localStorage, but localStorage is not available.
+Attempted to get item "mask-store" from localStorage, but localStorage is not available.
+Attempted to get item "lang" from localStorage, but localStorage is not available.
+Attempted to get item "chat-next-web-store" from localStorage, but localStorage is not available.
+Attempted to get item "chat-update" from localStorage, but localStorage is not available.
+Attempted to get item "chat-next-web-plugin" from localStorage, but localStorage is not available.
+Attempted to get item "prompt-store" from localStorage, but localStorage is not available.
+Attempted to get item "sync" from localStorage, but localStorage is not available.
+skip setItem app-config
+skip setItem access-control
+skip setItem mask-store
+skip setItem chat-next-web-store
+skip setItem chat-update
+skip setItem chat-next-web-plugin
+skip setItem prompt-store
+skip setItem sync
+Attempted to set item "app-config" in localStorage, but localStorage is not available.
+Attempted to set item "access-control" in localStorage, but localStorage is not available.
+Attempted to set item "mask-store" in localStorage, but localStorage is not available.
+Attempted to set item "chat-next-web-store" in localStorage, but localStorage is not available.
+Attempted to set item "chat-update" in localStorage, but localStorage is not available.
+Attempted to set item "chat-next-web-plugin" in localStorage, but localStorage is not available.
+Attempted to set item "prompt-store" in localStorage, but localStorage is not available.
+Attempted to set item "sync" in localStorage, but localStorage is not available.
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'E:\github\nextchat\.next\server\vendor-chunks\@remix-run.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/@remix-run' in E:\github\nextchat\.next\server for build dependencies doesn't lead to expected result 'E:\github\nextchat\.next\server\vendor-chunks\@remix-run.js', but to 'Error: Can't resolve './vendor-chunks/@remix-run' in 'E:\github\nextchat\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/@remix-run (expected E:\github\nextchat\.next\server\vendor-chunks\@remix-run.js)
+<w>  at file dependencies E:\github\nextchat\.next\server\webpack-runtime.js
+<w>  at file E:\github\nextchat\.next\server\webpack-runtime.js
+<w>  at file dependencies E:\github\nextchat\.next\server\app\not-found.js
+<w>  at file E:\github\nextchat\.next\server\app\not-found.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\server\require.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\server\require.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\server\load-components.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\utils.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\utils.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\worker.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\worker.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/combined-stream' in E:\github\nextchat\.next\server for build dependencies doesn't lead to expected result 'E:\github\nextchat\.next\server\vendor-chunks\combined-stream.js', but to 'Error: Can't resolve './vendor-chunks/combined-stream' in 'E:\github\nextchat\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/combined-stream (expected E:\github\nextchat\.next\server\vendor-chunks\combined-stream.js)
+<w>  at file dependencies E:\github\nextchat\.next\server\webpack-runtime.js
+<w>  at file E:\github\nextchat\.next\server\webpack-runtime.js
+<w>  at file dependencies E:\github\nextchat\.next\server\app\not-found.js
+<w>  at file E:\github\nextchat\.next\server\app\not-found.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\server\require.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\server\require.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\server\load-components.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\utils.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\utils.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\worker.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\worker.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/delayed-stream' in E:\github\nextchat\.next\server for build dependencies doesn't lead to expected result 'E:\github\nextchat\.next\server\vendor-chunks\delayed-stream.js', but to 'Error: Can't resolve './vendor-chunks/delayed-stream' in 'E:\github\nextchat\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/delayed-stream (expected E:\github\nextchat\.next\server\vendor-chunks\delayed-stream.js)
+<w>  at file dependencies E:\github\nextchat\.next\server\webpack-runtime.js
+<w>  at file E:\github\nextchat\.next\server\webpack-runtime.js
+<w>  at file dependencies E:\github\nextchat\.next\server\app\not-found.js
+<w>  at file E:\github\nextchat\.next\server\app\not-found.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\server\require.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\server\require.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\server\load-components.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\utils.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\utils.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\worker.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\worker.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/emoji-picker-react' in E:\github\nextchat\.next\server for build dependencies doesn't lead to expected result 'E:\github\nextchat\.next\server\vendor-chunks\emoji-picker-react.js', but to 'Error: Can't resolve './vendor-chunks/emoji-picker-react' in 'E:\github\nextchat\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/emoji-picker-react (expected E:\github\nextchat\.next\server\vendor-chunks\emoji-picker-react.js)
+<w>  at file dependencies E:\github\nextchat\.next\server\webpack-runtime.js
+<w>  at file E:\github\nextchat\.next\server\webpack-runtime.js
+<w>  at file dependencies E:\github\nextchat\.next\server\app\not-found.js
+<w>  at file E:\github\nextchat\.next\server\app\not-found.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\server\require.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\server\require.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\server\load-components.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\utils.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\utils.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\worker.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\worker.js
+<w>  at file dependencies E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs E:\github\nextchat\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ÖÕÖ¹Åú´¦Àí²Ù×÷Âð(Y/N)? ÖÕÖ¹Åú´¦Àí²Ù×÷Âð(Y/N)? [?25h
+ÖÕÖ¹Åú´¦Àí²Ù×÷Âð(Y/N)? 
