@@ -345,7 +345,11 @@ export function getHeaders(ignoreHeaders: boolean = false) {
     isEnabledAccessControl,
   } = getConfig();
 
-  if (isEnabledAccessControl && validString(accessStore.accessCode)) {
+  if (
+    isEnabledAccessControl &&
+    accessStore.accessCodeValidated &&
+    validString(accessStore.accessCode)
+  ) {
     headers["X-Access-Code"] = accessStore.accessCode.trim();
   }
 
@@ -361,7 +365,11 @@ export function getHeaders(ignoreHeaders: boolean = false) {
 
   if (bearerToken) {
     headers[authHeader] = bearerToken;
-  } else if (isEnabledAccessControl && validString(accessStore.accessCode)) {
+  } else if (
+    isEnabledAccessControl &&
+    accessStore.accessCodeValidated &&
+    validString(accessStore.accessCode)
+  ) {
     headers["Authorization"] = getBearerToken(
       ACCESS_CODE_PREFIX + accessStore.accessCode,
     );

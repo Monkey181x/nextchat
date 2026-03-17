@@ -169,7 +169,7 @@ function Screen() {
   const isSd = location.pathname === Path.Sd;
   const isSdNew = location.pathname === Path.SdNew;
   const shouldRequireAccessCode =
-    accessStore.enabledAccessControl() && !accessStore.accessCode;
+    accessStore.enabledAccessControl() && !accessStore.accessCodeValidated;
 
   const isMobileScreen = useMobileScreen();
   const shouldTightBorder =
