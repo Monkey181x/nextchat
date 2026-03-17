@@ -1,6 +1,14 @@
 {
   "extends": "next/core-web-vitals",
   "plugins": ["prettier", "unused-imports"],
+  "overrides": [
+    {
+      "files": ["app/constant.ts"],
+      "rules": {
+        "unused-imports/no-unused-imports": "off"
+      }
+    }
+  ],
   "rules": {
     "unused-imports/no-unused-imports": "warn"
   }

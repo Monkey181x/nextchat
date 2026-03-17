@@ -1,5 +1,6 @@
 import { ServiceProvider } from "@/app/constant";
 import { ModalConfigValidator, ModelConfig } from "../store";
+import { useAccessStore } from "../store";
 
 import Locale from "../locales";
 import { InputRange } from "./input-range";
@@ -13,41 +14,72 @@ export function ModelConfigList(props: {
   modelConfig: ModelConfig;
   updateConfig: (updater: (config: ModelConfig) => void) => void;
 }) {
+  const accessStore = useAccessStore();
   const allModels = useAllModels();
+  const isModelLocked = !!accessStore.fixedModel;
   const groupModels = groupBy(
     allModels.filter((v) => v.available),
     "provider.providerName",
   );
+  const firstAvailableModel = allModels.find((v) => v.available);
   const value = `${props.modelConfig.model}@${props.modelConfig?.providerName}`;
   const compressModelValue = `${props.modelConfig.compressModel}@${props.modelConfig?.compressProviderName}`;
+  const lockedModelValue = firstAvailableModel
+    ? `${firstAvailableModel.name}@${firstAvailableModel.provider?.providerName}`
+    : value;
+  const lockedModelLabel = firstAvailableModel
+    ? `${firstAvailableModel.displayName}${
+        firstAvailableModel.provider?.providerName
+          ? ` (${firstAvailableModel.provider.providerName})`
+          : ""
+      }`
+    : value;
+  const compressModels = isModelLocked
+    ? firstAvailableModel
+      ? [firstAvailableModel]
+      : []
+    : allModels.filter((v) => v.available);
 
   return (
     <>
       <ListItem title={Locale.Settings.Model}>
-        <Select
-          aria-label={Locale.Settings.Model}
-          value={value}
-          align="left"
-          onChange={(e) => {
-            const [model, providerName] = getModelProvider(
-              e.currentTarget.value,
-            );
-            props.updateConfig((config) => {
-              config.model = ModalConfigValidator.model(model);
-              config.providerName = providerName as ServiceProvider;
-            });
-          }}
-        >
-          {Object.keys(groupModels).map((providerName, index) => (
-            <optgroup label={providerName} key={index}>
-              {groupModels[providerName].map((v, i) => (
-                <option value={`${v.name}@${v.provider?.providerName}`} key={i}>
-                  {v.displayName}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </Select>
+        {isModelLocked ? (
+          <Select
+            aria-label={Locale.Settings.Model}
+            value={lockedModelValue}
+            disabled
+          >
+            <option value={lockedModelValue}>{lockedModelLabel}</option>
+          </Select>
+        ) : (
+          <Select
+            aria-label={Locale.Settings.Model}
+            value={value}
+            align="left"
+            onChange={(e) => {
+              const [model, providerName] = getModelProvider(
+                e.currentTarget.value,
+              );
+              props.updateConfig((config) => {
+                config.model = ModalConfigValidator.model(model);
+                config.providerName = providerName as ServiceProvider;
+              });
+            }}
+          >
+            {Object.keys(groupModels).map((providerName, index) => (
+              <optgroup label={providerName} key={index}>
+                {groupModels[providerName].map((v, i) => (
+                  <option
+                    value={`${v.name}@${v.provider?.providerName}`}
+                    key={i}
+                  >
+                    {v.displayName}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </Select>
+        )}
       </ListItem>
       <ListItem
         title={Locale.Settings.Temperature.Title}
@@ -248,7 +280,8 @@ export function ModelConfigList(props: {
         <Select
           className={styles["select-compress-model"]}
           aria-label={Locale.Settings.CompressModel.Title}
-          value={compressModelValue}
+          value={isModelLocked ? lockedModelValue : compressModelValue}
+          disabled={isModelLocked}
           onChange={(e) => {
             const [model, providerName] = getModelProvider(
               e.currentTarget.value,
@@ -259,13 +292,11 @@ export function ModelConfigList(props: {
             });
           }}
         >
-          {allModels
-            .filter((v) => v.available)
-            .map((v, i) => (
-              <option value={`${v.name}@${v.provider?.providerName}`} key={i}>
-                {v.displayName}({v.provider?.providerName})
-              </option>
-            ))}
+          {compressModels.map((v, i) => (
+            <option value={`${v.name}@${v.provider?.providerName}`} key={i}>
+              {v.displayName}({v.provider?.providerName})
+            </option>
+          ))}
         </Select>
       </ListItem>
     </>

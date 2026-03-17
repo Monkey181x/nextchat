@@ -1,4 +1,12 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
 
-npx lint-staged
+if [ -f "$(dirname -- "$0")/_/husky.sh" ]; then
+  . "$(dirname -- "$0")/_/husky.sh"
+fi
+
+if [ ! -d "node_modules" ]; then
+  echo "Skipping pre-commit: node_modules is not installed in this worktree."
+  exit 0
+fi
+
+npx --no-install lint-staged

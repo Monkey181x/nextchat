@@ -507,6 +507,7 @@ export function ChatActions(props: {
   const config = useAppConfig();
   const navigate = useNavigate();
   const chatStore = useChatStore();
+  const accessStore = useAccessStore();
   const pluginStore = usePluginStore();
   const session = chatStore.currentSession();
 
@@ -552,6 +553,7 @@ export function ChatActions(props: {
     );
     return model?.displayName ?? "";
   }, [models, currentModel, currentProviderName]);
+  const isModelLocked = !!accessStore.fixedModel;
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [showPluginSelector, setShowPluginSelector] = useState(false);
   const [showUploadImage, setShowUploadImage] = useState(false);
@@ -579,7 +581,11 @@ export function ChatActions(props: {
 
     // if current model is not available
     // switch to first available model
-    const isUnavailableModel = !models.some((m) => m.name === currentModel);
+    const isUnavailableModel = !models.some(
+      (m) =>
+        m.name === currentModel &&
+        m?.provider?.providerName === currentProviderName,
+    );
     if (isUnavailableModel && models.length > 0) {
       // show next model to default model if exist
       let nextModel = models.find((model) => model.isDefault) || models[0];
@@ -673,45 +679,49 @@ export function ChatActions(props: {
           }}
         />
 
-        <ChatAction
-          onClick={() => setShowModelSelector(true)}
-          text={currentModelName}
-          icon={<RobotIcon />}
-        />
+        {!isModelLocked && (
+          <>
+            <ChatAction
+              onClick={() => setShowModelSelector(true)}
+              text={currentModelName}
+              icon={<RobotIcon />}
+            />
 
-        {showModelSelector && (
-          <Selector
-            defaultSelectedValue={`${currentModel}@${currentProviderName}`}
-            items={models.map((m) => ({
-              title: `${m.displayName}${
-                m?.provider?.providerName
-                  ? " (" + m?.provider?.providerName + ")"
-                  : ""
-              }`,
-              value: `${m.name}@${m?.provider?.providerName}`,
-            }))}
-            onClose={() => setShowModelSelector(false)}
-            onSelection={(s) => {
-              if (s.length === 0) return;
-              const [model, providerName] = getModelProvider(s[0]);
-              chatStore.updateTargetSession(session, (session) => {
-                session.mask.modelConfig.model = model as ModelType;
-                session.mask.modelConfig.providerName =
-                  providerName as ServiceProvider;
-                session.mask.syncGlobalConfig = false;
-              });
-              if (providerName == "ByteDance") {
-                const selectedModel = models.find(
-                  (m) =>
-                    m.name == model &&
-                    m?.provider?.providerName == providerName,
-                );
-                showToast(selectedModel?.displayName ?? "");
-              } else {
-                showToast(model);
-              }
-            }}
-          />
+            {showModelSelector && (
+              <Selector
+                defaultSelectedValue={`${currentModel}@${currentProviderName}`}
+                items={models.map((m) => ({
+                  title: `${m.displayName}${
+                    m?.provider?.providerName
+                      ? " (" + m?.provider?.providerName + ")"
+                      : ""
+                  }`,
+                  value: `${m.name}@${m?.provider?.providerName}`,
+                }))}
+                onClose={() => setShowModelSelector(false)}
+                onSelection={(s) => {
+                  if (s.length === 0) return;
+                  const [model, providerName] = getModelProvider(s[0]);
+                  chatStore.updateTargetSession(session, (session) => {
+                    session.mask.modelConfig.model = model as ModelType;
+                    session.mask.modelConfig.providerName =
+                      providerName as ServiceProvider;
+                    session.mask.syncGlobalConfig = false;
+                  });
+                  if (providerName == "ByteDance") {
+                    const selectedModel = models.find(
+                      (m) =>
+                        m.name == model &&
+                        m?.provider?.providerName == providerName,
+                    );
+                    showToast(selectedModel?.displayName ?? "");
+                  } else {
+                    showToast(model);
+                  }
+                }}
+              />
+            )}
+          </>
         )}
 
         {supportsCustomSize(currentModel) && (

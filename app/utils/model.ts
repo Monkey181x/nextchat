@@ -48,6 +48,87 @@ export function getModelProvider(modelWithProvider: string): [string, string?] {
   return [model, provider];
 }
 
+function normalizeProviderToken(provider?: string) {
+  if (!provider) return undefined;
+
+  const normalized = provider.trim().replace(/\s+/g, "").toLowerCase();
+
+  switch (normalized) {
+    case "302.ai":
+    case "302ai":
+    case "ai302":
+      return "ai302";
+    default:
+      return normalized;
+  }
+}
+
+export function matchesModelSpecifier(
+  model: Pick<LLMModel, "name"> & {
+    provider?: Pick<LLMModel["provider"], "id" | "providerName">;
+  },
+  modelSpecifier: string,
+) {
+  const [modelName, providerName] = getModelProvider(modelSpecifier);
+
+  if (model.name !== modelName) {
+    return false;
+  }
+
+  const expectedProvider = normalizeProviderToken(providerName);
+
+  if (!expectedProvider) {
+    return true;
+  }
+
+  return [model.provider?.id, model.provider?.providerName]
+    .map((provider) => normalizeProviderToken(provider))
+    .some((provider) => provider === expectedProvider);
+}
+
+export function buildModelRestriction(modelSpecifier: string) {
+  const [modelName, providerName] = getModelProvider(modelSpecifier.trim());
+  const normalizedProvider = normalizeProviderToken(providerName);
+
+  if (!modelName) {
+    return "";
+  }
+
+  return normalizedProvider
+    ? `-all,+${modelName}@${normalizedProvider}`
+    : `-all,+${modelName}`;
+}
+
+export function resolveModelConfig(
+  models: readonly LLMModel[],
+  customModels: string,
+  modelSpecifier: string,
+):
+  | {
+      model: string;
+      providerName: ServiceProvider;
+      displayName: string;
+    }
+  | undefined {
+  if (!modelSpecifier) {
+    return undefined;
+  }
+
+  const matchedModel = collectModels(models, customModels).find(
+    (model) => model.available && matchesModelSpecifier(model, modelSpecifier),
+  );
+
+  if (!matchedModel?.provider?.providerName) {
+    return undefined;
+  }
+
+  return {
+    model: matchedModel.name,
+    providerName: matchedModel.provider.providerName as ServiceProvider,
+    displayName: matchedModel.displayName,
+  };
+}
+
 export function collectModelTable(
   models: readonly LLMModel[],
   customModels: string,
