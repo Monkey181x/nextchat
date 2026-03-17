@@ -271,33 +271,61 @@ function useSyncLockedModel() {
       return;
     }
 
+    const expectedModel = resolvedModel.model;
+    const expectedProvider = resolvedModel.providerName;
+
     const syncModelConfig = (modelConfig: typeof config.modelConfig) => {
-      modelConfig.model = resolvedModel.model as typeof modelConfig.model;
+      modelConfig.model = expectedModel as typeof modelConfig.model;
       modelConfig.providerName =
-        resolvedModel.providerName as typeof modelConfig.providerName;
+        expectedProvider as typeof modelConfig.providerName;
       modelConfig.compressModel =
-        resolvedModel.model as typeof modelConfig.compressModel;
+        expectedModel as typeof modelConfig.compressModel;
       modelConfig.compressProviderName =
-        resolvedModel.providerName as typeof modelConfig.compressProviderName;
+        expectedProvider as typeof modelConfig.compressProviderName;
     };
 
-    useAppConfig.getState().update((state) => {
-      syncModelConfig(state.modelConfig);
-    });
+    const isModelConfigSynced = (modelConfig: typeof config.modelConfig) =>
+      modelConfig.model === expectedModel &&
+      modelConfig.providerName === expectedProvider &&
+      modelConfig.compressModel === expectedModel &&
+      modelConfig.compressProviderName === expectedProvider;
 
-    useChatStore.getState().update((state) => {
-      state.sessions.forEach((session) => {
-        syncModelConfig(session.mask.modelConfig);
-        session.mask.syncGlobalConfig = true;
+    if (!isModelConfigSynced(config.modelConfig)) {
+      useAppConfig.getState().update((state) => {
+        syncModelConfig(state.modelConfig);
       });
-    });
+    }
 
-    useMaskStore.getState().update((state) => {
-      Object.values(state.masks).forEach((mask) => {
-        syncModelConfig(mask.modelConfig);
-        mask.syncGlobalConfig = true;
+    const chatStore = useChatStore.getState();
+    const hasUnsyncedSessions = chatStore.sessions.some(
+      (session) =>
+        !session.mask.syncGlobalConfig ||
+        !isModelConfigSynced(session.mask.modelConfig),
+    );
+
+    if (hasUnsyncedSessions) {
+      chatStore.update((state) => {
+        state.sessions.forEach((session) => {
+          syncModelConfig(session.mask.modelConfig);
+          session.mask.syncGlobalConfig = true;
+        });
       });
-    });
+    }
+
+    const maskStore = useMaskStore.getState();
+    const hasUnsyncedMasks = Object.values(maskStore.masks).some(
+      (mask) =>
+        !mask.syncGlobalConfig || !isModelConfigSynced(mask.modelConfig),
+    );
+
+    if (hasUnsyncedMasks) {
+      maskStore.update((state) => {
+        Object.values(state.masks).forEach((mask) => {
+          syncModelConfig(mask.modelConfig);
+          mask.syncGlobalConfig = true;
+        });
+      });
+    }
   }, [
     accessStore.customModels,
     accessStore.fixedModel,
