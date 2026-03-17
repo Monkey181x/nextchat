@@ -1,0 +1,17 @@
+[     603ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://www.googletagmanager.com/gtag/js?id=G-89WN60ZK2E:0
+[     743ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/css/e00b6020178b71d7.css:0
+[    1230ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/css/caf9a57a63d7406d.css:0
+[    1301ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/8069-4c78fbb07bc7891a.js:0
+[    1301ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/webpack-5b8a84e272ecfce5.js:0
+[    1301ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/fd9d1056-c19853f8a5992bd8.js:0
+[    1301ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/main-app-7ff85dba3d11a4b6.js:0
+[    1307ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/5249-e6b4ca9fe5552db1.js:0
+[    1704ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/app/layout-d5fa7c1484d73597.js:0
+[    1704ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/e99863e0-e4b3f99da88abe5e.js:0
+[    1704ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/fcfb803e-7cf37c0f71f664d5.js:0
+[    1704ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/4b1a69f1-6f22e9db098c258d.js:0
+[    1706ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/2544-372438258e2eec87.js:0
+[    1707ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/_next/static/chunks/app/page-0bd04b6a61e50f3b.js:0
+[    1817ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/serviceWorkerRegister.js:0
+[    1972ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/favicon.ico:0
+[    4974ms] [WARNING] The resource https://www.googletagmanager.com/gtag/js?id=G-89WN60ZK2E was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3002/:0

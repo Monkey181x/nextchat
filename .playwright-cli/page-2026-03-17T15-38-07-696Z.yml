@@ -1,0 +1,103 @@
+- generic [ref=e1]:
+  - alert [ref=e2]
+  - generic [ref=e3]:
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]: NextChat
+          - generic [ref=e38]: Build your own AI assistant.
+        - img [ref=e40]
+      - generic [ref=e44]:
+        - button "面具 面具" [ref=e45] [cursor=pointer]:
+          - generic "面具" [ref=e46]:
+            - img [ref=e47]
+          - generic "面具" [ref=e56]
+        - button "发现 发现" [ref=e57] [cursor=pointer]:
+          - generic "发现" [ref=e58]:
+            - img [ref=e59]
+          - generic "发现" [ref=e63]
+      - button "新的聊天 0 条对话 2026/3/17 23:37:59" [ref=e66] [cursor=pointer]:
+        - generic [ref=e67]: 新的聊天
+        - generic [ref=e68]:
+          - generic [ref=e69]: 0 条对话
+          - generic [ref=e70]: 2026/3/17 23:37:59
+        - img [ref=e72]
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - link "设置" [ref=e79] [cursor=pointer]:
+            - /url: "#/settings"
+            - button "设置" [ref=e80]:
+              - img [ref=e82]
+          - link "ChatGPT" [ref=e88] [cursor=pointer]:
+            - /url: https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web
+            - button "ChatGPT" [ref=e89]:
+              - img [ref=e91]
+        - button "新的聊天 新的聊天" [ref=e99] [cursor=pointer]:
+          - generic "新的聊天" [ref=e100]:
+            - img [ref=e101]
+          - generic "新的聊天" [ref=e105]
+      - img [ref=e107]
+    - generic [ref=e112]:
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - generic [ref=e115] [cursor=pointer]: 新的聊天
+          - generic [ref=e116]: 共 0 条对话
+        - generic [ref=e117]:
+          - button "刷新标题" [ref=e119] [cursor=pointer]:
+            - generic "刷新标题" [ref=e120]:
+              - img [ref=e121]
+          - button "编辑消息记录" [ref=e126] [cursor=pointer]:
+            - generic "编辑消息记录" [ref=e127]:
+              - img [ref=e128]
+          - button "导出聊天记录" [ref=e134] [cursor=pointer]:
+            - generic "导出聊天记录" [ref=e135]:
+              - img [ref=e136]
+          - button "全屏" [ref=e141] [cursor=pointer]:
+            - generic "全屏" [ref=e142]:
+              - img [ref=e143]
+      - generic [ref=e155]:
+        - generic [ref=e158]:
+          - generic [ref=e160]:
+            - button "编辑" [ref=e162] [cursor=pointer]:
+              - img [ref=e164]
+            - img [ref=e170]
+          - paragraph [ref=e175]: 有什么可以帮你的吗
+          - generic: 预设提示词
+        - generic [ref=e176]:
+          - generic [ref=e177]:
+            - generic [ref=e178] [cursor=pointer]:
+              - img [ref=e180]
+              - generic: 对话设置
+            - generic [ref=e185] [cursor=pointer]:
+              - img [ref=e187]
+              - generic: 上传图片
+            - generic [ref=e192] [cursor=pointer]:
+              - img [ref=e194]
+              - generic: 自动主题
+            - generic [ref=e200] [cursor=pointer]:
+              - img [ref=e202]
+              - generic: 快捷指令
+            - generic [ref=e207] [cursor=pointer]:
+              - img [ref=e209]
+              - generic: 所有面具
+            - generic [ref=e218] [cursor=pointer]:
+              - img [ref=e220]
+              - generic: 清除聊天
+            - generic [ref=e223] [cursor=pointer]:
+              - img [ref=e225]
+              - generic: gpt-4o-mini
+            - generic [ref=e231] [cursor=pointer]:
+              - img [ref=e233]
+              - generic: 插件
+            - generic [ref=e237] [cursor=pointer]:
+              - img [ref=e239]
+              - generic: 键盘快捷方式
+          - generic [ref=e242]:
+            - textbox "发送 发送" [active] [ref=e243]:
+              - /placeholder: "Enter 发送，Shift + Enter 换行，/ 触发补全，: 触发命令"
+            - button "发送 发送" [ref=e244] [cursor=pointer]:
+              - generic "发送" [ref=e245]:
+                - img [ref=e246]
+              - generic "发送" [ref=e251]
+  - generic: "1"
+  - generic: TEXT_FOR_MEASURE
