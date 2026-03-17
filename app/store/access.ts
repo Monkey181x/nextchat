@@ -65,6 +65,7 @@ const DEFAULT_AI302_URL = isApp ? AI302_BASE_URL : ApiPath["302.AI"];
 
 const DEFAULT_ACCESS_STATE = {
   accessCode: "",
+  accessCodeValidated: false,
   useCustomConfig: false,
 
   provider: ServiceProvider.OpenAI,
@@ -228,11 +229,15 @@ export const useAccessStore = createPersistStore(
       return ensure(get(), ["siliconflowApiKey"]);
     },
 
+    isValidAccessCode() {
+      return ensure(get(), ["accessCode"]) && get().accessCodeValidated;
+    },
+
     isAuthorized() {
       this.fetch();
 
       if (this.enabledAccessControl()) {
-        return ensure(get(), ["accessCode"]);
+        return this.isValidAccessCode();
       }
 
       return (
@@ -313,7 +318,7 @@ export const useAccessStore = createPersistStore(
   }),
   {
     name: StoreKey.Access,
-    version: 2,
+    version: 3,
     migrate(persistedState, version) {
       if (version < 2) {
         const state = persistedState as {
@@ -324,6 +329,14 @@ export const useAccessStore = createPersistStore(
         };
         state.openaiApiKey = state.token;
         state.azureApiVersion = "2023-08-01-preview";
+      }
+
+      if (version < 3) {
+        (
+          persistedState as typeof DEFAULT_ACCESS_STATE & {
+            accessCodeValidated?: boolean;
+          }
+        ).accessCodeValidated = false;
       }
 
       return persistedState as any;

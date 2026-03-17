@@ -16,13 +16,70 @@ import LeftIcon from "@/app/icons/left.svg";
 import { safeLocalStorage } from "@/app/utils";
 import { trackSettingsPageGuideToCPaymentClick } from "../utils/auth-settings-events";
 import clsx from "clsx";
+import { showToast } from "./ui-lib";
 
 const storage = safeLocalStorage();
 
 export function AuthPage(props: { showReturn?: boolean }) {
   const navigate = useNavigate();
   const accessStore = useAccessStore();
+  const authLocale = Locale.Auth as typeof Locale.Auth & {
+    Confirming?: string;
+    Empty?: string;
+    Invalid?: string;
+  };
+  const [accessCodeInput, setAccessCodeInput] = useState(
+    accessStore.accessCode,
+  );
+  const [isVerifying, setIsVerifying] = useState(false);
   const goChat = () => navigate(Path.Chat);
+
+  async function onConfirm() {
+    const accessCode = accessCodeInput.trim();
+
+    if (!accessCode) {
+      showToast(authLocale.Empty ?? "请先输入访问码");
+      return;
+    }
+
+    if (isVerifying) {
+      return;
+    }
+
+    setIsVerifying(true);
+
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          accessCode,
+        }),
+      });
+
+      if (!res.ok) {
+        accessStore.update((access) => {
+          access.accessCode = "";
+          access.accessCodeValidated = false;
+        });
+        showToast(authLocale.Invalid ?? "访问码错误");
+        return;
+      }
+
+      accessStore.update((access) => {
+        access.accessCode = accessCode;
+        access.accessCodeValidated = true;
+      });
+      goChat();
+    } catch {
+      showToast(authLocale.Invalid ?? "访问码错误");
+    } finally {
+      setIsVerifying(false);
+    }
+  }
 
   useEffect(() => {
     if (getClientConfig()?.isApp) {
@@ -54,21 +111,24 @@ export function AuthPage(props: { showReturn?: boolean }) {
         style={{ marginTop: "3vh", marginBottom: "3vh" }}
         aria={Locale.Settings.ShowPassword}
         aria-label={Locale.Auth.Input}
-        value={accessStore.accessCode}
+        value={accessCodeInput}
         type="text"
         placeholder={Locale.Auth.Input}
         onChange={(e) => {
-          accessStore.update(
-            (access) => (access.accessCode = e.currentTarget.value),
-          );
+          setAccessCodeInput(e.currentTarget.value);
         }}
       />
 
       <div className={styles["auth-actions"]}>
         <IconButton
-          text={Locale.Auth.Confirm}
+          text={
+            isVerifying
+              ? authLocale.Confirming ?? "验证中..."
+              : Locale.Auth.Confirm
+          }
           type="primary"
-          onClick={goChat}
+          onClick={onConfirm}
+          disabled={isVerifying}
         />
       </div>
     </div>
