@@ -64,7 +64,9 @@ function normalizeProviderToken(provider?: string) {
 }
 
 export function matchesModelSpecifier(
-  model: Pick<LLMModel, "name" | "provider">,
+  model: Pick<LLMModel, "name"> & {
+    provider?: Pick<LLMModel["provider"], "id" | "providerName">;
+  },
   modelSpecifier: string,
 ) {
   const [modelName, providerName] = getModelProvider(modelSpecifier);
