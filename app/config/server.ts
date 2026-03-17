@@ -1,6 +1,6 @@
 import md5 from "spark-md5";
 import { DEFAULT_MODELS, DEFAULT_GA_ID } from "../constant";
-import { isGPT4Model } from "../utils/model";
+import { buildModelRestriction, isGPT4Model } from "../utils/model";
 
 declare global {
   namespace NodeJS {
@@ -23,6 +23,7 @@ declare global {
       DISABLE_FAST_LINK?: string; // disallow parse settings from url or not
       CUSTOM_MODELS?: string; // to control custom models
       DEFAULT_MODEL?: string; // to control default model in every new chat window
+      MODEL?: string; // lock the app to a single model globally
       VISION_MODELS?: string; // to control vision models
 
       // stability only
@@ -139,6 +140,7 @@ export const getServerSideConfig = () => {
   const disableGPT4 = !!process.env.DISABLE_GPT4;
   let customModels = process.env.CUSTOM_MODELS ?? "";
   let defaultModel = process.env.DEFAULT_MODEL ?? "";
+  const fixedModel = process.env.MODEL?.trim() ?? "";
   let visionModels = process.env.VISION_MODELS ?? "";
 
   if (disableGPT4) {
@@ -149,6 +151,14 @@ export const getServerSideConfig = () => {
     if (defaultModel && isGPT4Model(defaultModel)) {
       defaultModel = "";
     }
+  }
+
+  if (fixedModel) {
+    const fixedModelRestriction = buildModelRestriction(fixedModel);
+    customModels = [customModels, fixedModelRestriction]
+      .filter((value) => value.length > 0)
+      .join(",");
+    defaultModel = fixedModel;
   }
 
   const isStability = !!process.env.STABILITY_API_KEY;
@@ -271,6 +281,7 @@ export const getServerSideConfig = () => {
     disableFastLink: !!process.env.DISABLE_FAST_LINK,
     customModels,
     defaultModel,
+    fixedModel,
     visionModels,
     allowedWebDavEndpoints,
     enableMcp: process.env.ENABLE_MCP === "true",

@@ -18,13 +18,14 @@ import {
   CHATGLM_BASE_URL,
   SILICONFLOW_BASE_URL,
   AI302_BASE_URL,
+  DEFAULT_MODELS,
 } from "../constant";
 import { getHeaders } from "../client/api";
 import { getClientConfig } from "../config/client";
 import { createPersistStore } from "../utils/store";
 import { ensure } from "../utils/clone";
-import { DEFAULT_CONFIG } from "./config";
-import { getModelProvider } from "../utils/model";
+import { DEFAULT_CONFIG, useAppConfig } from "./config";
+import { resolveModelConfig } from "../utils/model";
 
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 
@@ -147,6 +148,7 @@ const DEFAULT_ACCESS_STATE = {
   disableFastLink: false,
   customModels: "",
   defaultModel: "",
+  fixedModel: "",
   visionModels: "",
 
   // tts config
@@ -229,7 +231,10 @@ export const useAccessStore = createPersistStore(
     isAuthorized() {
       this.fetch();
 
-      // has token or has code or disabled access control
+      if (this.enabledAccessControl()) {
+        return ensure(get(), ["accessCode"]);
+      }
+
       return (
         this.isValidOpenAI() ||
         this.isValidAzure() ||
@@ -245,8 +250,7 @@ export const useAccessStore = createPersistStore(
         this.isValidXAI() ||
         this.isValidChatGLM() ||
         this.isValidSiliconFlow() ||
-        !this.enabledAccessControl() ||
-        (this.enabledAccessControl() && ensure(get(), ["accessCode"]))
+        !this.enabledAccessControl()
       );
     },
     fetch() {
@@ -261,11 +265,36 @@ export const useAccessStore = createPersistStore(
       })
         .then((res) => res.json())
         .then((res) => {
-          const defaultModel = res.defaultModel ?? "";
-          if (defaultModel !== "") {
-            const [model, providerName] = getModelProvider(defaultModel);
-            DEFAULT_CONFIG.modelConfig.model = model;
-            DEFAULT_CONFIG.modelConfig.providerName = providerName as any;
+          const preferredModel = res.fixedModel || res.defaultModel || "";
+          const resolvedModel = resolveModelConfig(
+            DEFAULT_MODELS as any,
+            res.customModels ?? "",
+            preferredModel,
+          );
+
+          if (resolvedModel) {
+            DEFAULT_CONFIG.modelConfig.model = resolvedModel.model as any;
+            DEFAULT_CONFIG.modelConfig.providerName =
+              resolvedModel.providerName as any;
+
+            if (res.fixedModel) {
+              DEFAULT_CONFIG.modelConfig.compressModel =
+                resolvedModel.model as any;
+              DEFAULT_CONFIG.modelConfig.compressProviderName =
+                resolvedModel.providerName as any;
+            }
+
+            useAppConfig.getState().update((config) => {
+              config.modelConfig.model = resolvedModel.model as any;
+              config.modelConfig.providerName =
+                resolvedModel.providerName as any;
+
+              if (res.fixedModel) {
+                config.modelConfig.compressModel = resolvedModel.model as any;
+                config.modelConfig.compressProviderName =
+                  resolvedModel.providerName as any;
+              }
+            });
           }
 
           return res;

@@ -25,10 +25,13 @@ function parseApiKey(bearToken: string) {
 }
 
 export function auth(req: NextRequest, modelProvider: ModelProvider) {
+  const headerAccessCode = req.headers.get("X-Access-Code")?.trim() ?? "";
   const authToken = req.headers.get("Authorization") ?? "";
 
   // check if it is openai api key or user token
-  const { accessCode, apiKey } = parseApiKey(authToken);
+  const parsedAuth = parseApiKey(authToken);
+  const accessCode = headerAccessCode || parsedAuth.accessCode;
+  const apiKey = parsedAuth.apiKey;
 
   const hashedCode = md5.hash(accessCode ?? "").trim();
 
@@ -39,7 +42,7 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
   console.log("[User IP] ", getIP(req));
   console.log("[Time] ", new Date().toLocaleString());
 
-  if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !apiKey) {
+  if (serverConfig.needCode && !serverConfig.codes.has(hashedCode)) {
     return {
       error: true,
       msg: !accessCode ? "empty access code" : "wrong access code",

@@ -27,9 +27,11 @@ import { useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
 import { type ClientApi, getClientApi } from "../client/api";
-import { useAccessStore } from "../store";
+import { useAccessStore, useChatStore } from "../store";
 import clsx from "clsx";
 import { initializeMcpSystem, isMcpEnabled } from "../mcp/actions";
+import { useMaskStore } from "../store/mask";
+import { resolveModelConfig } from "../utils/model";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -159,12 +161,15 @@ export function WindowContent(props: { children: React.ReactNode }) {
 
 function Screen() {
   const config = useAppConfig();
+  const accessStore = useAccessStore();
   const location = useLocation();
   const isArtifact = location.pathname.includes(Path.Artifacts);
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
   const isSd = location.pathname === Path.Sd;
   const isSdNew = location.pathname === Path.SdNew;
+  const shouldRequireAccessCode =
+    accessStore.enabledAccessControl() && !accessStore.accessCode;
 
   const isMobileScreen = useMobileScreen();
   const shouldTightBorder =
@@ -173,6 +178,19 @@ function Screen() {
   useEffect(() => {
     loadAsyncGoogleFont();
   }, []);
+
+  if (shouldRequireAccessCode) {
+    return (
+      <div
+        className={clsx(styles.container, {
+          [styles["tight-container"]]: shouldTightBorder,
+          [styles["rtl-screen"]]: getLang() === "ar",
+        })}
+      >
+        <AuthPage showReturn={false} />
+      </div>
+    );
+  }
 
   if (isArtifact) {
     return (
@@ -223,20 +241,75 @@ function Screen() {
 export function useLoadData() {
   const config = useAppConfig();
 
-  const api: ClientApi = getClientApi(config.modelConfig.providerName);
-
   useEffect(() => {
+    const api: ClientApi = getClientApi(config.modelConfig.providerName);
+
     (async () => {
       const models = await api.llm.models();
       config.mergeModels(models);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [config.modelConfig.providerName]);
+}
+
+function useSyncLockedModel() {
+  const accessStore = useAccessStore();
+  const config = useAppConfig();
+
+  useEffect(() => {
+    if (!accessStore.fixedModel) {
+      return;
+    }
+
+    const resolvedModel = resolveModelConfig(
+      config.models,
+      [config.customModels, accessStore.customModels].join(","),
+      accessStore.fixedModel,
+    );
+
+    if (!resolvedModel) {
+      return;
+    }
+
+    const syncModelConfig = (modelConfig: typeof config.modelConfig) => {
+      modelConfig.model = resolvedModel.model as typeof modelConfig.model;
+      modelConfig.providerName =
+        resolvedModel.providerName as typeof modelConfig.providerName;
+      modelConfig.compressModel =
+        resolvedModel.model as typeof modelConfig.compressModel;
+      modelConfig.compressProviderName =
+        resolvedModel.providerName as typeof modelConfig.compressProviderName;
+    };
+
+    useAppConfig.getState().update((state) => {
+      syncModelConfig(state.modelConfig);
+    });
+
+    useChatStore.getState().update((state) => {
+      state.sessions.forEach((session) => {
+        syncModelConfig(session.mask.modelConfig);
+        session.mask.syncGlobalConfig = true;
+      });
+    });
+
+    useMaskStore.getState().update((state) => {
+      Object.values(state.masks).forEach((mask) => {
+        syncModelConfig(mask.modelConfig);
+        mask.syncGlobalConfig = true;
+      });
+    });
+  }, [
+    accessStore.customModels,
+    accessStore.fixedModel,
+    config.customModels,
+    config.models,
+  ]);
 }
 
 export function Home() {
   useSwitchTheme();
   useLoadData();
+  useSyncLockedModel();
   useHtmlLang();
 
   useEffect(() => {

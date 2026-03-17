@@ -344,6 +344,11 @@ export function getHeaders(ignoreHeaders: boolean = false) {
     apiKey,
     isEnabledAccessControl,
   } = getConfig();
+
+  if (isEnabledAccessControl && validString(accessStore.accessCode)) {
+    headers["X-Access-Code"] = accessStore.accessCode.trim();
+  }
+
   // when using baidu api in app, not set auth header
   if (isBaidu && clientConfig?.isApp) return headers;
 
