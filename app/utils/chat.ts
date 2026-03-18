@@ -15,6 +15,9 @@ import { fetch as tauriFetch } from "./stream";
 export function compressImage(file: Blob, maxSize: number): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
+    const readAsDataUrl = (blob: Blob) => {
+      reader.readAsDataURL(blob);
+    };
     reader.onload = (readerEvent: any) => {
       const image = new Image();
       image.onload = () => {
@@ -51,22 +54,24 @@ export function compressImage(file: Blob, maxSize: number): Promise<string> {
     };
     reader.onerror = reject;
 
-    if (file.type.includes("heic")) {
+    if (/image\/hei(c|f)/i.test(file.type)) {
       try {
         const heic2any = require("heic2any");
         heic2any({ blob: file, toType: "image/jpeg" })
-          .then((blob: Blob) => {
-            reader.readAsDataURL(blob);
+          .then((blob: Blob | Blob[]) => {
+            readAsDataUrl(Array.isArray(blob) ? blob[0] : blob);
           })
           .catch((e: any) => {
             reject(e);
           });
+        return;
       } catch (e) {
         reject(e);
+        return;
       }
     }
 
-    reader.readAsDataURL(file);
+    readAsDataUrl(file);
   });
 }
 
